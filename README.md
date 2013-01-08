@@ -2,6 +2,8 @@
 
 Gem for interfacing with Paymo's API.
 
+** Stay tuned... it's being built! **
+
 ## Installation
 
 Add this line to your application's Gemfile:
