@@ -1,5 +1,14 @@
 require "paymo/version"
 
 module Paymo
-  # Your code goes here...
+  autoload :Entries,	'paymo/entries.rb'
+
+  class << self
+    
+    def api_key
+      puts 'blah'
+    end
+
+  end
+
 end
