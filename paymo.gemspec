@@ -2,16 +2,22 @@
 require File.expand_path('../lib/paymo/version', __FILE__)
 
 Gem::Specification.new do |gem|
+  
+  gem.name          = "paymo"
+  gem.version       = Paymo::VERSION
+
   gem.authors       = ["James Duncombe"]
   gem.email         = ["james@jamesduncombe.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  
+  gem.description   = "Ruby wrapper for the Paymo API"
+  gem.summary       = "Simple way to interact with the Paymo API"
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($\)
-  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.name          = "paymo"
+  
   gem.require_paths = ["lib"]
-  gem.version       = Paymo::VERSION
+
+  gem.add_runtime_dependency 'rest-client', '~> 1.6.7'
+  
 end
