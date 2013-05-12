@@ -1,6 +1,11 @@
 module Paymo
   class API
 
+    def self.methodize(resource, method)
+      method = method.to_s.gsub(/_([a-z]{1})/) { "#{$1.upcase}" }
+      "#{resource}.#{method}"
+    end
+
     def self.get(method, options = {})
       method = method.to_s.gsub('_', '.')
       options.merge!({ auth_token: Paymo.auth_token, api_key: Paymo.api_key, format: 'json' })
