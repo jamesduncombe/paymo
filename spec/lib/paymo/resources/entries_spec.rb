@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Paymo::Entries do
 
   before(:all) do
-    @paymo = Paymo::Base.new(username: 'james@jamesduncombe.com', password: '')
+    @paymo = Paymo::Base.new(username: 'james@jamesduncombe.com', password: ENV['PAYMO_PASS'])
     @pe = Paymo::Entries.new
   end
 

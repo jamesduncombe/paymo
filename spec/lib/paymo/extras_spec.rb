@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Paymo::Extras' do
 
   before(:all) do
-    @paymo = Paymo::Base.new(username: 'james@jamesduncombe.com', password: '')
+    @paymo = Paymo::Base.new(username: 'james@jamesduncombe.com', password: ENV['PAYMO_PASS'])
     @pe = Paymo::Entries.new
     @pr = Paymo::Projects.new
   end
@@ -12,8 +12,10 @@ describe 'Paymo::Extras' do
 
     it 'should return how much I have earnt today' do
 
-      start_time = Time.new(2013, 5, 7)
-      end_time = Time.new(2013, 5, 7, 23, 59)
+      @c = Cache.new(@pr, :price_per_hour)
+
+      start_time = Time.new(2013, 5, 13)
+      end_time = Time.new(2013, 5, 17, 23, 59)
       entries = @pe.find_by_user(9308, start: start_time, end: end_time)
      
       a = entries.map do |entry|
@@ -24,16 +26,15 @@ describe 'Paymo::Extras' do
       end
      
       a.each do |entry|
-        entry[:per_hour] = (@pr.get_info(entry[:project_id])).price_per_hour
+        entry[:per_hour] = @c.get(entry[:project_id])
         entry[:total] = (entry[:per_hour] * entry[:hours])
       end
-      
+
       sum = a.inject(0) { |sum, hash| sum + hash[:total] }
-     
+
       puts sum
 
     end
-
 
   end
 end

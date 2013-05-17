@@ -4,7 +4,11 @@ require 'json'
 
 module Paymo
   require_relative './paymo/api.rb'
+  require_relative './paymo/cache.rb'
   require_relative './paymo/resources/entries.rb'
+  require_relative './paymo/models/entry.rb'
+  require_relative './paymo/resources/projects.rb'
+  require_relative './paymo/models/project.rb'
 
   API_ENDPOINT = 'https://api.paymo.biz/service/'
 
@@ -32,7 +36,7 @@ module Paymo
     end
 
     def auth
-      response = Paymo::API.post :auth_login, {
+      response = Paymo::API.post :auth, :login, {
         format: @format,
         username: @username,
         password: @password,
