@@ -8,7 +8,7 @@ describe Paymo::Entries do
   end
 
   describe '#get_info' do
-    it 'gets user info' do      
+    it 'gets user info' do
       result = @pe.get_info(10706552)
       result.project_name.should eq 'IndieArtery'
     end
@@ -69,5 +69,4 @@ describe Paymo::Entries do
     end
   end
 
-  
 end

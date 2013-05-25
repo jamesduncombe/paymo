@@ -9,6 +9,7 @@ module Paymo
   require_relative './paymo/models/entry.rb'
   require_relative './paymo/resources/projects.rb'
   require_relative './paymo/models/project.rb'
+  require_relative './paymo/resources/reports.rb'
 
   API_ENDPOINT = 'https://api.paymo.biz/service/'
 
