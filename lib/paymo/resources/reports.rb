@@ -10,7 +10,7 @@ module Paymo
       end
       result = Paymo::API.post :reports, :create, options
       if result['status'] == 'ok'
-        p results
+        results
       end
     end
 
