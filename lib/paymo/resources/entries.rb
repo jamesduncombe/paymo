@@ -1,6 +1,6 @@
 module Paymo
   class Entries
-    
+
     # Get detailed information about an entry.
     def get_info(entry_id)
       result = Paymo::API.get :entries, :get_info, entry_id: entry_id

@@ -4,6 +4,7 @@ require 'json'
 
 module Paymo
   require_relative './paymo/api.rb'
+  require_relative './paymo/extras.rb'
   require_relative './paymo/cache.rb'
   require_relative './paymo/resources/entries.rb'
   require_relative './paymo/models/entry.rb'
@@ -16,7 +17,7 @@ module Paymo
   class << self
 
     attr_writer :auth_token
-    
+
     def api_key
       ENV['PAYMO_API_KEY']
     end
@@ -26,7 +27,7 @@ module Paymo
     end
 
   end
-  
+
   class Base
 
     def initialize(options = {})

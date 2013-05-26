@@ -3,14 +3,14 @@ module Paymo
 
     def create(options = {})
       if options[:start]
-        options[:start] = options[:start].strftime('%Y-%m-%d %H:%M:%S')
+        options[:start] = options[:start].strftime('%Y-%m-%d')
       end
       if options[:end]
-        options[:end] = options[:end].strftime('%Y-%m-%d %H:%M:%S')
+        options[:end] = options[:end].strftime('%Y-%m-%d')
       end
       result = Paymo::API.post :reports, :create, options
       if result['status'] == 'ok'
-        results
+        result
       end
     end
 

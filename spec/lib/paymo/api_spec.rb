@@ -3,7 +3,10 @@ require 'spec_helper'
 describe Paymo::API do
 
   it 'returns a result when getting' do
-    puts Paymo::API.get :auth, :login, username: 'asdasd'
+    VCR.use_cassette('auth') do
+      result = Paymo::API.post :auth, :login, username: 'james@jamesduncombe.com', password: ENV['PAYMO_PASS']
+      result['status'].should eq 'ok'
+    end
   end
 
   describe '#self.methodize' do

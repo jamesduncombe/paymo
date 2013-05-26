@@ -17,3 +17,4 @@ test/version_tmp
 tmp
 .env
 .DS_Store
+fixtures/vcr_cassettes/*
