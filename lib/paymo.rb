@@ -16,7 +16,7 @@ module Paymo
 
   class << self
 
-    attr_writer :auth_token
+    attr_writer :auth_token, :debug
 
     def api_key
       ENV['PAYMO_API_KEY']
@@ -24,6 +24,10 @@ module Paymo
 
     def auth_token
       @auth_token ||= ''
+    end
+
+    def debug
+      @debug ||= false
     end
 
   end
