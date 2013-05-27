@@ -3,14 +3,11 @@ require 'rest_client'
 require 'json'
 
 module Paymo
-  require_relative './paymo/api.rb'
-  require_relative './paymo/extras.rb'
-  require_relative './paymo/cache.rb'
-  require_relative './paymo/resources/entries.rb'
-  require_relative './paymo/models/entry.rb'
-  require_relative './paymo/resources/projects.rb'
-  require_relative './paymo/models/project.rb'
-  require_relative './paymo/resources/reports.rb'
+
+  # Pull in our dependencies
+  ['/paymo/*.rb', '/paymo/models/*.rb', '/paymo/resources/*.rb'].each do |path|
+    Dir[File.dirname(__FILE__) + path].each { |f| require_relative f }
+  end
 
   API_ENDPOINT = 'https://api.paymo.biz/service/'
 
