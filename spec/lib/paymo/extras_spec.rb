@@ -9,10 +9,17 @@ describe Paymo::Extras do
   end
 
   describe '#earnt_today?' do
-    it 'returns how much I have earnt today' do
-      VCR.use_cassette('extras.earnt_today') do
-        @pe = Paymo::Extras.new
-        @pe.earnt_today?.should be_an_instance_of Float
+    it 'returns how much a user has earnt today' do
+      VCR.use_cassette('extras.earnt_today', record: :new_episodes) do
+        Paymo::Extras.new(9308).earnt_today?.should be_an_instance_of Float
+      end
+    end
+  end
+
+  describe '#earnt_this_month?' do
+    it 'returns how much a user has earnt this month' do
+      VCR.use_cassette('extras.earnt_this_month', record: :new_episodes) do
+        Paymo::Extras.new(9308).earnt_this_month?.should be_an_instance_of Float
       end
     end
   end

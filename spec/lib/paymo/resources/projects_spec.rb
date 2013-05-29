@@ -11,7 +11,7 @@ describe Paymo::Projects do
 
   describe '#get_info' do
     it 'returns information about the project' do
-      VCR.use_cassette('projects.get_info') do
+      VCR.use_cassette('projects.get_info', record: :new_episodes) do
         result = @projects.get_info(802485)
         result.name.should be_a String
       end
