@@ -9,22 +9,21 @@ module Paymo
     end
 
     def earnt_today?
-      @start_time = Date.today.to_time
-      run
+      run Date.today.to_time
     end
 
     def earnt_this_month?
-      @start_time = Time.new(Time.now.year, Time.now.month)
-      run
+      run Time.new(Time.now.year, Time.now.month)
     end
 
     private
 
-      def run
+      def run(time)
+        @start_time = time
         get_entries
         build_projects_and_hours
         build_per_hour_and_total
-        sum_total_hours
+        sum_total_overall_hours
       end
 
       def get_entries
@@ -35,7 +34,7 @@ module Paymo
         @project_ids_and_hours = @entries.map do |entry|
           {
             project_id: entry.project_id,
-            hours:      ((entry.end.to_time - entry.start.to_time) / 60 / 60)
+            hours:      span_of_hours_to_hours(entry)
           }
         end
       end
@@ -47,8 +46,12 @@ module Paymo
         end
       end
 
-      def sum_total_hours
+      def sum_total_overall_hours
         @project_ids_and_hours.inject(0) { |sum, hash| sum + hash[:total] }
+      end
+
+      def span_of_hours_to_hours(entry)
+        ((entry.end.to_time - entry.start.to_time) / 60 / 60)
       end
 
   end
