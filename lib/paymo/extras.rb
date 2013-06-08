@@ -12,6 +12,11 @@ module Paymo
       run Date.today.to_time
     end
 
+    def earnt_this_week?
+      start = Date.today - 7
+      run start.to_time
+    end
+
     def earnt_this_month?
       run Time.new(Time.now.year, Time.now.month)
     end

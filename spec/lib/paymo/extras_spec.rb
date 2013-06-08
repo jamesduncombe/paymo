@@ -24,4 +24,13 @@ describe Paymo::Extras do
     end
   end
 
+  describe '#earnt_this_week?' do
+    it 'returns how much a user has earnt this week' do
+      VCR.use_cassette('extras.earnt_this_week', record: :new_episodes) do
+        Paymo::Extras.new(9308).earnt_this_week?.should be_an_instance_of Float
+      end
+    end
+  end
+
+
 end
