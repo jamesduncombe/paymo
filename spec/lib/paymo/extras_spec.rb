@@ -32,5 +32,4 @@ describe Paymo::Extras do
     end
   end
 
-
 end

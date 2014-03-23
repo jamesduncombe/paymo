@@ -21,8 +21,10 @@ module Paymo
       end
       result = Paymo::API.get :entries, :find_by_user, options
       if result['status'] == 'ok'
-        result['entries']['entry'].map! do |entry|
-          Paymo::Entry.new(entry)
+        if result['entries'].any?
+          result['entries']['entry'].map! do |entry|
+            Paymo::Entry.new(entry)
+          end
         end
       end
     end
@@ -46,7 +48,7 @@ module Paymo
       end
     end
 
-    # Returns the total amount of time tracked (in seconds) in all the entries for 
+    # Returns the total amount of time tracked (in seconds) in all the entries for
     # the given user matching the optional time criteria.
     # options - start_date, end_date
     def get_tracked_time_by_user(user_id, options = {})
@@ -61,7 +63,7 @@ module Paymo
       { time: result['time']['_content'] }
     end
 
-    # Returns the total amount of time tracked (in seconds) in all the entries for 
+    # Returns the total amount of time tracked (in seconds) in all the entries for
     # the given task matching the optional time criteria.
     # options - start_date, end_date
     def get_tracked_time_by_task(task_id, options = {})
@@ -85,7 +87,7 @@ module Paymo
     #Â options - hash of billed (boolean) and description
     def add_bulk(date, duration, task_id, options = {})
     end
-    
+
     # options - task_id, added_manually = true, billed = false, description
     def update(entry_id, start_date, end_date, options = {})
     end

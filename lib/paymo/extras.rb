@@ -13,7 +13,7 @@ module Paymo
     end
 
     def earnt_this_week?
-      start = Date.today - 7
+      start = Date.today + 1 - Date.today.wday
       run start.to_time
     end
 
@@ -26,9 +26,13 @@ module Paymo
       def run(time)
         @start_time = time
         get_entries
-        build_projects_and_hours
-        build_per_hour_and_total
-        sum_total_overall_hours
+        if @entries
+          build_projects_and_hours
+          build_per_hour_and_total
+          sum_total_overall_hours
+        else
+          0.00
+        end
       end
 
       def get_entries

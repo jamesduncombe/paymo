@@ -18,4 +18,13 @@ describe Paymo::Projects do
     end
   end
 
+  describe '#get_list' do
+    it 'returns information about the project' do
+      VCR.use_cassette('projects.get_list', record: :new_episodes) do
+       # result =
+          @projects.get_list
+        #result.name.should be_a String
+      end
+    end
+  end
 end

@@ -8,5 +8,18 @@ module Paymo
       end
     end
 
+    def get_list(options = {})
+      result = Paymo::API.get :projects, :get_list, options
+      if result['status'] == 'ok'
+        projects = []
+        result['projects']['project'].each do |project|
+          # p project
+          projects << project
+          # projects << Paymo::Project.new(project)
+        end
+        projects.select { |a| a['retired'] == 0 }.uniq{ |c| c['client']['id'] }.each { |p| puts p['client']['name']  }
+      end
+    end
+
   end
 end

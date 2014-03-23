@@ -1,0 +1,6 @@
+language: ruby
+script: 'rake test'
+notifications:
+  email:
+    recipients:
+      - james@jamesduncombe.com
