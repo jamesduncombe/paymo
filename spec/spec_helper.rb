@@ -13,3 +13,7 @@ VCR.configure do |c|
   c.cassette_library_dir = 'fixtures/vcr_cassettes'
   c.hook_into :webmock
 end
+
+Paymo.configure do |config|
+  config.api_key = ENV['PAYMO_API_KEY']
+end

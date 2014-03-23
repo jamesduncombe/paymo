@@ -12,21 +12,22 @@ module Paymo
   API_ENDPOINT = 'https://api.paymo.biz/service/'
 
   class << self
+    attr_accessor :config
+  end
 
-    attr_writer :auth_token, :debug
+  def self.configure
+    self.config ||= Configuration.new
+    yield(config)
+  end
 
-    def api_key
-      ENV['PAYMO_API_KEY']
+  class Configuration
+    attr_accessor :api_key, :debug, :auth_token
+
+    def initialize
+      @api_key  = ENV['PAYMO_API_KEY']
+      @debug    = false
+      @auth_token = nil
     end
-
-    def auth_token
-      @auth_token ||= ''
-    end
-
-    def debug
-      @debug ||= false
-    end
-
   end
 
   class Base
@@ -43,10 +44,10 @@ module Paymo
         format: @format,
         username: @username,
         password: @password,
-        api_key: Paymo.api_key
+        api_key: Paymo.config.api_key
       }
       # add error checking
-      Paymo.auth_token = response['token']['_content']
+      Paymo.config.auth_token = response['token']['_content']
     end
 
   end
