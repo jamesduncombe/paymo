@@ -1,5 +1,5 @@
 language: ruby
-script: rake test
+script: "rspec spec/lib/paymo/**/*_spec.rb"
 cache: bundler
 rvm:
 - 1.9.2
