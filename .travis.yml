@@ -1,6 +1,14 @@
 language: ruby
-script: 'rake test'
-notifications:
-  email:
-    recipients:
-      - james@jamesduncombe.com
+script: rake test
+cache: bundler
+rvm:
+- 1.9.2
+- 1.9.3
+- 2.0.0
+- 2.1.0
+- jruby-19mode
+- rbx-19mode
+env:
+  global:
+  - secure: V/moAqkEnC5bENnn42cBx2Hdmh3hdhUcd+jAKl2syEYGrMYQxpUmZGNCVIaZPr7wdnBaxftO63wy21DbHufr2h1jhEPkaQ6Ya4NSY6KYeyLKaJglMJ1eVdEont7UM/932hwem4CotiaTVtJWM7trgXn+Kx3PqjhG0nEYpVe9mTw=
+  - secure: icnPdnxk7ivpdxLQNrvqwdA7+D+C89TQJz9Nv5O0tQ0WOp7jjfeqHCH3Hv3BfvoAeNsBf5hTqNnEkbYTNyoCs4jMDDF965dCVmbxHxqaUMHt0i2JMQ6vTHe6gfU/2p15ES9iiWdxxoKIKCA87mL5sJ813yuBeDnVecb5uW6Tnug=
