@@ -9,7 +9,7 @@ module Paymo
     Dir[File.dirname(__FILE__) + path].each { |f| require_relative f }
   end
 
-  API_ENDPOINT = 'https://api.paymo.biz/service/'
+  API_ENDPOINT = 'https://app.paymoapp.com/api/'
 
   class << self
     attr_accessor :config
@@ -21,10 +21,9 @@ module Paymo
   end
 
   class Configuration
-    attr_accessor :api_key, :debug, :auth_token
+    attr_accessor :debug, :session_id
 
     def initialize
-      @api_key  = ENV['PAYMO_API_KEY']
       @debug    = false
       @auth_token = nil
     end
@@ -35,19 +34,14 @@ module Paymo
     def initialize(options = {})
       @username = options[:username]
       @password = options[:password]
-      @format   = options[:format] || 'json'
       self.auth
     end
 
     def auth
-      response = Paymo::API.post :auth, :login, {
-        format: @format,
-        username: @username,
-        password: @password,
-        api_key: Paymo.config.api_key
-      }
+      response = Paymo::API.post :sessions, username: @username, password: @password
+
       # add error checking
-      Paymo.config.auth_token = response['token']['_content']
+      Paymo.config.session_id = response['sessions'][0]['id']
     end
 
   end

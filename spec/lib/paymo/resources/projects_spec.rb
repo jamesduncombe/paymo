@@ -4,7 +4,7 @@ describe Paymo::Projects do
 
   before(:all) do
     VCR.use_cassette('auth') do
-      Paymo::Base.new(username: 'james@jamesduncombe.com', password: ENV['PAYMO_PASS'])
+      Paymo::Base.new(username: ENV['PAYMO_EMAIL'], password: ENV['PAYMO_PASS'])
     end
     @projects = Paymo::Projects.new
   end

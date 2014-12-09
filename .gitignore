@@ -21,3 +21,4 @@ fixtures/vcr_cassettes/*
 .ruby-version
 .ruby-gemset
 bin/*
+.rspec

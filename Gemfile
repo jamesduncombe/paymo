@@ -7,4 +7,6 @@ group :test do
   gem 'webmock'
   gem 'vcr'
   gem 'rake'
+  gem 'pry'
+  gem 'awesome_print'
 end

@@ -1,25 +1,45 @@
 module Paymo
   class API
 
-    def self.methodize(resource, method)
-      method = method.to_s.gsub(/_([a-z]{1})/) { "#{$1.upcase}" }
-      "#{resource}.#{method}"
+    def self.get(resource, options = {})
+      puts "curl -X GET -H 'X-Session: #{Paymo.config.session_id}' -H 'Accept: application/json' \
+            #{API_ENDPOINT}#{resource}#{options}" if Paymo.config.debug
+
+      request = RestClient::Request.new(
+        url: "#{API_ENDPOINT}#{resource}#{options}",
+        method: 'get',
+        headers: { accept: 'json', 'X-Session' => Paymo.config.session_id }
+      )
+
+      JSON.parse(request.execute)
     end
 
-    def self.get(resource, method, options = {})
-      method = methodize(resource, method)
-      options.merge!({ auth_token: Paymo.config.auth_token, api_key: Paymo.config.api_key, format: 'json' })
-      puts "curl #{API_ENDPOINT}paymo.#{method}?#{URI.encode_www_form(options)}" if Paymo.config.debug
-      json = RestClient.get "#{API_ENDPOINT}paymo.#{method}", { params: options }
-      JSON.parse(json)
-    end
+    def self.post(resource, options = {})
+      if resource == :sessions
+        curl_request = "-u '#{options[:username]}:#{options[:password]}'"
 
-    def self.post(resource, method, options = {})
-      method = methodize(resource, method)
-      options.merge!({ auth_token: Paymo.config.auth_token, api_key: Paymo.config.api_key, format: 'json' })
-      puts "curl -X POST -d '#{URI.encode_www_form(options)}' #{API_ENDPOINT}paymo.#{method}" if Paymo.config.debug
-      json = RestClient.post "#{API_ENDPOINT}paymo.#{method}", options
-      JSON.parse(json)
+        other_headers = {
+          headers: { accept: 'json' },
+          user: options[:username], password: options[:password]
+        }
+
+      else
+        curl_request = "-H 'X-Session: #{Paymo.config.session_id}'"
+
+        other_headers = {
+          headers: { accept: 'json', 'X-Session' => Paymo.config.session_id }
+        }
+      end
+
+      request = RestClient::Request.new({
+        url: "#{API_ENDPOINT}#{resource}",
+        method: 'post'}.merge!( other_headers ))
+
+      puts "curl -X POST #{curl_request} -H 'Accept: application/json' \
+              #{API_ENDPOINT}#{resource}" if Paymo.config.debug
+
+      JSON.parse(request.execute)
+
     end
   end
 end
